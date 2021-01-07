@@ -22,11 +22,12 @@ class App extends Component {
     const personIndex = this.state.persons.findIndex(p => {
       return p.id === id; 
     }); 
-  
-    const person = {...this.state.persons[personIndex]};
     
+    // copy the person and reset its name
+    const person = {...this.state.persons[personIndex]};
     person.name = event.target.value; 
 
+    // copy the persons list and update its state 
     const persons = [...this.state.persons]; 
     persons[personIndex] = person; 
 
