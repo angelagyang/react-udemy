@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './UserOutput.css';
+import './UserOutput.css'
 
 class UserOutput extends Component {
     render() {
