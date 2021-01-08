@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
-import Radium from 'radium'; 
 import Person from './Person/Person';
+import styled from 'styled-components';
 
+const StyledButton = styled.button`background-color: ${props => props.alt ? 'red' : 'green'};
+color: white;  
+font: inherit;
+border: 1px solid blue; 
+padding: 8px;
+cursor: pointer;
+&:hover {
+  background-color: ${props => props.alt ? 'salmon' : 'light-red'}; 
+  color: black;
+}`;
 
 class App extends Component {
   state = { 
@@ -43,19 +53,6 @@ class App extends Component {
   }
 
   render() {
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',  
-      font: 'inherit', 
-      border: '1px solid blue', 
-      padding: '8px',
-      cursor: 'pointer',
-      ':hover': {
-        backgroundColor: 'lightgreen', 
-        color: 'black'
-      }
-    };
-    
     let persons = null; 
     if (this.state.showPersons) {
       persons = (
@@ -73,11 +70,11 @@ class App extends Component {
       );
 
       // dynamic styling
-      style.backgroundColor = 'red'; 
-      style[':hover'] = {
-        backgroundColor: 'salmon', 
-        color: 'black'
-      }
+      // style.backgroundColor = 'red'; 
+      // style[':hover'] = {
+      //   backgroundColor: 'salmon', 
+      //   color: 'black'
+      // }
     }
     
     let classes = [] // class names defined in CSS file 
@@ -89,19 +86,20 @@ class App extends Component {
     }
     
     return (
-      <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <p className={classes.join(' ')}>This is really working!</p>
-        <button 
-          onClick={this.togglePersonsHandler}
-          style={style}>Toggle Persons</button>
-        {persons}
-        
-      </div>
+        <div className="App">
+          <h1>Hi, I'm a React App</h1>
+          <p className={classes.join(' ')}>This is really working!</p>
+          <StyledButton alt={this.state.showPersons}
+            onClick={this.togglePersonsHandler}
+           >Toggle Persons</StyledButton>
+          {persons}
+          
+        </div>
+      
     );
 
     // return React.createElement('div', {className:'App'}, React.createElement('h1', null, "Does this work")); 
   }
 }
 
-export default Radium(App);
+export default App;
