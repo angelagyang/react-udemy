@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import parentClass from './App.css';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -42,6 +42,8 @@ class App extends Component {
 
   render() {
     let persons = null; 
+    let btnClass = [parentClass.Button]; 
+
     if (this.state.showPersons) {
       persons = (
         <div>
@@ -63,6 +65,7 @@ class App extends Component {
       //   backgroundColor: 'salmon', 
       //   color: 'black'
       // }
+      btnClass.push(parentClass.Red);
     }
     
     let classes = [] // class names defined in CSS file 
@@ -74,10 +77,10 @@ class App extends Component {
     }
     
     return (
-        <div className="App">
+        <div className={parentClass.App}>
           <h1>Hi, I'm a React App</h1>
           <p className={classes.join(' ')}>This is really working!</p>
-          <button alt={this.state.showPersons}
+          <button className={btnClass.join(' ')} alt={this.state.showPersons}
             onClick={this.togglePersonsHandler}
            >Toggle Persons</button>
           {persons}
