@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import parentClass from './App.css';
-import Person from './Person/Person';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary'; 
+import Persons from '../components/Persons/Persons'; 
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
   state = { 
@@ -43,45 +43,24 @@ class App extends Component {
 
   render() {
     let persons = null; 
-    let btnClass = [parentClass.Button]; 
 
     if (this.state.showPersons) {
       persons = (
         <div>
-          {this.state.persons.map((person, index) => {
-            return <ErrorBoundary key={person.id}>
-                <Person 
-                  name={person.name} 
-                  age={person.age} 
-                  change={(event) => this.nameChangedHandler(event, person.id)}
-                  click={() => this.deletePersonHandler(index)}
-                  ></Person>
-            </ErrorBoundary>
-            
-          })}
+          <Persons persons={this.state.persons} 
+            clicked={this.deletePersonHandler} 
+            changed={this.nameChangedHandler}></Persons>
         </div>
       );
-
-      btnClass.push(parentClass.Red);
     }
-    
-    let classes = [] // class names defined in CSS file 
-    if (this.state.persons.length < 2) {
-      classes.push('red'); 
-    }
-    if (this.state.persons.length < 1) {
-      classes.push('bold');
-    }
+      
     
     return (
         <div className={parentClass.App}>
-          <h1>Hi, I'm a React App</h1>
-          <p className={classes.join(' ')}>This is really working!</p>
-          <button className={btnClass.join(' ')} alt={this.state.showPersons}
-            onClick={this.togglePersonsHandler}
-           >Toggle Persons</button>
+          <Cockpit showPersons={this.state.showPersons} 
+            persons={this.state.persons}
+            clicked={this.togglePersonsHandler}> </Cockpit>
           {persons}
-          
         </div>
       
     );
